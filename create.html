@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Saver | Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <header class="top-bar">
+        <span>Coin Saver</span>
+    </header>
+    
+    <div class="box">
+        <div class="container">
+            <header>Sign Up</header>
+            <form id="signup-form">
+                <div class="input-field">
+                    <input type="email" class="input" id="email" placeholder="Email" required>
+                </div>
+                
+                <div class="input-field">
+                    <input type="password" class="input" placeholder="Password" id="password" required>
+
+                   
+                </div>
+
+                <div class="input-field">
+                    <input type="password" class="input" id="confirm-password" placeholder="confirm password" required>
+                    
+                </div>
+
+                <button type="submit" class="submit" id="submit">Create Account</button>
+                <div class="create">
+                    <p>Already have an account? <a href="index.html">Log in</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+     
+</body>
+<script type="MODULE">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyCZ0Kl9tkKB6Gzd8q4hWmYrXSsgQ7PwWBQ",
+      authDomain: "coinsaver-c2b70.firebaseapp.com",
+      projectId: "coinsaver-c2b70",
+      storageBucket: "coinsaver-c2b70.firebasestorage.app",
+      messagingSenderId: "543583712366",
+      appId: "1:543583712366:web:da794a9bad3cfe7973a27f"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+  
+
+ const submit = document.getElementById('submit');
+submit.addEventListener("click", function(event) {
+event.preventDefault()
+const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirmpassword = document.getElementById('confirm-password').value;
+
+  const domain = ["gmail.com", "yahoo.com"];
+  const emaildom = email.split("@")[1];
+  if (!domain.includes(emaildom)) {
+    alert("Please use a valid email")
+    return;
+  }
+
+
+  if (confirmpassword != password){
+     alert("PASSWORD DO NOT MATCH")
+     return;
+  }
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    alert("Creating Account...")
+    window.location.href = "index.html";
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage)
+  });
+  })
+    
+    </script>
+</html>
